@@ -3,10 +3,10 @@
 
 #define DMXUSB_BAUDRATE 115200
 
-#define JEWEL_LED_PIN 6
-#define JEWEL_LED_COUNT 7
+#define NEOPIXEL_LED_PIN 6
+#define NEOPIXEL_LED_COUNT 32
 
-Adafruit_NeoPixel strip(JEWEL_LED_COUNT, JEWEL_LED_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip(NEOPIXEL_LED_COUNT, NEOPIXEL_LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void onDmxReceived(int universe, char buffer[512]) {
   if (universe == 0) {
@@ -30,7 +30,7 @@ void onDmxReceived(int universe, char buffer[512]) {
 }
 
 DMXUSB dmxUSB(
-  SerialUSB,
+  Serial,
   DMXUSB_BAUDRATE,
   0,
   onDmxReceived
@@ -40,7 +40,7 @@ void setup() {
   strip.begin();
   strip.show();
   strip.setBrightness(50);
-  SerialUSB.begin(DMXUSB_BAUDRATE);
+  Serial.begin(DMXUSB_BAUDRATE);
 }
 
 void loop() {
